@@ -13,8 +13,6 @@ def search(searchName):
 			#if hookups.has_key(names[i]): #that name has entered hookups => it 100% will, because it will at least have searchName in it
 				# add all of the values associated with that name key
 			eskSiblings = hookups.get(names[i])
-			#for ind in range(len(eskSiblings)):
-				#if eskSiblings[i] != searchName
 			results = results + eskSiblings
 			finalResults = set(results)
 			finalResults.remove(searchName)
@@ -59,7 +57,6 @@ def add():
 			else: # add the hookup to the list
 				hookups = addHookup(yourname, hookup)
 				hookups = addHookup(hookup, yourname)
-				#names.append(hookup)
 				print hookups
 
 hookups = {}

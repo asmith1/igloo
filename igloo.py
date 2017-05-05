@@ -1,43 +1,40 @@
 # graph version
-# the hookups will be represented by an undirected graph
+# the connections will be represented by an undirected graph
 # this will be implemented using adjacency lists
-# this version is simplified in that it treats hookups as bidirectional and does not account for verified/unverified hookups
+# this version is simplified in that it treats connections as bidirectional and does not account for verified/unverified connections
 
 def search(searchName):
 	results = []
-	if hookups.has_key(searchName) == False:
+	if connections.has_key(searchName) == False:
 		print "You are not in our database. Join by typing add and entering your name!"
 	else:
-		names = hookups.get(searchName)
-		for i in range(len(names)): # for each hookup
-			#if hookups.has_key(names[i]): #that name has entered hookups => it 100% will, because it will at least have searchName in it
+		names = connections.get(searchName)
+		for i in range(len(names)): # for each connection
+			#if connections.has_key(names[i]): #that name has entered connections => it 100% will, because it will at least have searchName in it
 				# add all of the values associated with that name key
-			eskSiblings = hookups.get(names[i])
-			results = results + eskSiblings
+			secondOrdConns = connections.get(names[i])
+			results = results + secondOrdConns
 			finalResults = set(results)
 			finalResults.remove(searchName)
-			print "Eskimo siblings up to", names[i], "are:", finalResults
-			#for ind in range(len(hookups.keys())):
-				#for index in range(len(hookups.get(hookups.keys()[ind]))): #for each of the names in the list of name associated with key[ind]
-					#if hookups.get(hookups.keys()[ind])[index] == searchName:
-					#	results.append(hookups.keys()[ind])
-						#print "Results from iteration", index, "are :", results
-		print "Your eskimo siblings are:", finalResults
+		if len(finalResults) == 0:
+			print "You have no 2nd degree connections in our database!"
+		else:
+			print "Your 2nd degree connections are:", finalResults
 
-def addHookup(yourname, hookup):
-	if hookups.has_key(yourname):
-		names = hookups.get(yourname)
-		# next check if the hookup is already a value
+def addConnection(yourname, connection):
+	if connections.has_key(yourname):
+		names = connections.get(yourname)
+		# next check if the connection is already a value
 	else:
 		names = []
-	newHookups = {yourname: names}
-	hookups.update(newHookups)
+	newConnections = {yourname: names}
+	connections.update(newConnections)
 	for i in range(len(names)):
-		if names[i] == hookup:
-			return hookups
+		if names[i] == connection:
+			return connections
 	# otherwise, if it exits the for loop, the name isnt there so we have to add it
-	names.append(hookup)
-	return hookups
+	names.append(connection)
+	return connections
 
 def add():
 	while True:
@@ -45,23 +42,18 @@ def add():
 		yourname = raw_input("Please enter your name: ")
 		if yourname == 'done':
 			break
-		#if hookups.has_key(yourname):
-			# just append the list of names to the names that are already there
-		#	names = hookups.get(yourname) #returns all the names associated with that name
-		#newHookups = {yourname: names}
-		#hookups.update(newHookups)
 		while True:
-			hookup = raw_input("Please enter someone you've hooked up with: ")
-			if hookup == 'done':
+			connection = raw_input("Please enter a contact: ")
+			if connection == 'done':
 				break
-			else: # add the hookup to the list
-				hookups = addHookup(yourname, hookup)
-				hookups = addHookup(hookup, yourname)
-				print hookups
+			else: # add the connection to the list
+				connections = addConnection(yourname, connection)
+				connections = addConnection(connection, yourname)
+				#print connections
 
-hookups = {}
+connections = {}
 while True:
-	mode = raw_input("Would you like to add hookups or search for your Eskimo brothers and sisters? ")
+	mode = raw_input("Would you like to add connections or search for your 2nd order connections? ")
 	if mode == "add":
 		add()
 	elif mode == "search":

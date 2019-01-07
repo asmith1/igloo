@@ -1,12 +1,12 @@
-# graph version
+# igloo.py
 # the connections will be represented by an undirected graph
 # this will be implemented using adjacency lists
 # this version is simplified in that it treats connections as bidirectional and does not account for verified/unverified connections
 
 def search(searchName):
 	results = []
-	if connections.has_key(searchName) == False:
-		print "You are not in our database. Join by typing add and entering your name!"
+	if searchName not in connections:
+		return "You are not in our database. Join by typing add and entering your name!"
 	else:
 		names = connections.get(searchName)
 		for i in range(len(names)): # for each connection
@@ -17,12 +17,14 @@ def search(searchName):
 			finalResults = set(results)
 			finalResults.remove(searchName)
 		if len(finalResults) == 0:
-			print "You have no 2nd degree connections in our database!"
+			return "You have no 2nd degree connections in our database!"
 		else:
-			print "Your 2nd degree connections are:", finalResults
+			cleanresults = ', '.join(list(finalResults))
+			return "Your 2nd degree connections are: " + cleanresults
 
+# private function, only used internally
 def addConnection(yourname, connection):
-	if connections.has_key(yourname):
+	if yourname in connections:
 		names = connections.get(yourname)
 		# next check if the connection is already a value
 	else:
@@ -36,33 +38,37 @@ def addConnection(yourname, connection):
 	names.append(connection)
 	return connections
 
-def add():
+# adds a connection to the connections dict and returns the updated dict
+def add(yourname, connection):
+	connections = addConnection(yourname, connection)
+	connections = addConnection(connection, yourname)
+	return connections
+
+def addbyCL():
 	while True:
 		names = []
-		yourname = raw_input("Please enter your name: ")
+		yourname = input("Please enter your name: (or done to exit)")
 		if yourname == 'done':
 			break
 		while True:
-			connection = raw_input("Please enter a contact: ")
+			connection = input("Please enter a contact: (or done to exit)")
 			if connection == 'done':
 				break
 			else: # add the connection to the list
-				connections = addConnection(yourname, connection)
-				connections = addConnection(connection, yourname)
+				add(yourname, connection)
 				#print connections
 
 connections = {}
-while True:
-	mode = raw_input("Would you like to add connections or search for your 2nd order connections? ")
-	if mode == "add":
-		add()
-	elif mode == "search":
-		searchName = raw_input("Please enter your name: ")
-		search(searchName)
-	elif mode == 'exit':
-		break
-	else:
-		print "Please type 'add', 'search', or 'exit'"
-
-
-
+if __name__ == '__main__':
+	# run program via command line
+	while True:
+		mode = input("Would you like to add connections or search for your 2nd order connections? ")
+		if mode == "add":
+			addbyCL()
+		elif mode == "search":
+			searchName = input("Please enter your name: ")
+			print (search(searchName))
+		elif mode == 'exit':
+			break
+		else:
+			print("Please type 'add', 'search', or 'exit'")

@@ -1,0 +1,27 @@
+<!doctype html>
+<head>
+  <title> Add Connections </title>
+</head>
+
+<body>
+  <form method="POST">
+    {% if not username %}
+      <p> Please enter your name </p>
+      <input name="username">
+    {% else %}
+      <p> Enter a connection! </p>
+      <input name="connection">
+    {% endif %}
+      <p> <input type="submit"> </p>
+  </form>
+  {% if username %}
+  <p> Hello {{username}}! Here are your connections: </p>
+  {% endif %}
+  {% if connectionList %}
+  <ul>
+    {% for connection in connectionList %}
+    <li> {{connection}} </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</body>

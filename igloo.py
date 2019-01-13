@@ -38,6 +38,9 @@ def addConnection(yourname, connection):
 	names.append(connection)
 	return connections
 
+def getConnections(yourname):
+	return connections.get(yourname, "")
+
 # adds a connection to the connections dict and returns the entire updated dict
 def add(yourname, connection):
 	connections = addConnection(yourname, connection)

@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template, redirect
-from igloo import add, search
+from igloo import add, search, getConnections
 
 app=Flask(__name__)
 
@@ -8,15 +8,16 @@ username = None
 
 @app.route('/')
 def add_form():
-    return render_template('add_form.html')
+    global username
+    return render_template('add_form.html', username=username)
 
 @app.route('/', methods=['POST'])
 def add_name():
     global username
     print ("-----USERNAME: ", username)
-    if not username:
-        print ('------getting the username!------')
-        username = request.form['username']
+    # if not username:
+    # print ('------getting the username!------')
+    username = request.form['username']
     return render_template('add_form.html', username=username)
     # else:
     #     connection = request.form['connection']
@@ -26,6 +27,21 @@ def add_name():
     #     connectionList = newDict[username]
     #     print (newDict, connectionList)
     #     return render_template('add_form.html', username=username, connectionList=connectionList)
+
+@app.route('/add')
+def add_connections_page():
+    global username
+    connectionList = getConnections(username)
+    return render_template('add_connections.html', username=username, connectionList=connectionList)
+
+@app.route('/add', methods=['POST'])
+def add_connections():
+    global username
+    connection = request.form['connection']
+    newDict = add(username, connection)
+    connectionList = newDict[username]
+    print (newDict, connectionList)
+    return render_template('add_connections.html', username=username, connectionList=connectionList)
 
 # @app.route('/<username>/connections', methods=['POST'])
 # def add_connections(username):

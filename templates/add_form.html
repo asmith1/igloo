@@ -1,34 +1,29 @@
 <!doctype html>
 <head>
-  <title> Add Connections </title>
+  <title> Welcome to Igloo </title>
 </head>
 
 <body>
-  <form method="POST" id="form1">
+  <form method="POST" id="usernameform">
     {% if not username %}
       <p> Please enter your name </p>
       <input name="username" placeholder="Name"/>
       <p> <input name="submitusername" type="submit"/> </p>
-    <!-- {% else %} 
-      <!-- <p> Enter a connection! </p>
-      <input name="connection"/>
-      <button type="button" name="addConnection"> Add connections </button>
-      <button type="button" name="search"> Search your 2nd order connections </button> -->
     {% endif %}
-
   </form>
+
   {% if username %}
   <p> Hello {{username}}! What would you like to do today? </p>
-  <button type="button" name="addConnection"> Add connections </button>
+  <a type="button" name="addConnection" href="add"> Add connections </a>
   <button type="button" name="search"> Search my 2nd order connections </button>
   {% endif %}
-  {% if connectionList %}
+  <!-- {% if connectionList %}
   <ul>
     {% for connection in connectionList %}
     <li> {{connection}} </li>
     {% endfor %}
   </ul>
-  {% endif %}
+  {% endif %} -->
   <!-- {% if username %}
   <button type="button" name="search" form="form1"> Search your 2nd order connections! </button>
   {% endif %} -->

@@ -4,18 +4,23 @@
 </head>
 
 <body>
-  <form method="POST">
+  <form method="POST" id="form1">
     {% if not username %}
       <p> Please enter your name </p>
-      <input name="username">
-    {% else %}
-      <p> Enter a connection! </p>
-      <input name="connection">
+      <input name="username" placeholder="Name"/>
+      <p> <input name="submitusername" type="submit"/> </p>
+    <!-- {% else %} 
+      <!-- <p> Enter a connection! </p>
+      <input name="connection"/>
+      <button type="button" name="addConnection"> Add connections </button>
+      <button type="button" name="search"> Search your 2nd order connections </button> -->
     {% endif %}
-      <p> <input type="submit"> </p>
+
   </form>
   {% if username %}
-  <p> Hello {{username}}! Here are your connections: </p>
+  <p> Hello {{username}}! What would you like to do today? </p>
+  <button type="button" name="addConnection"> Add connections </button>
+  <button type="button" name="search"> Search my 2nd order connections </button>
   {% endif %}
   {% if connectionList %}
   <ul>
@@ -24,4 +29,7 @@
     {% endfor %}
   </ul>
   {% endif %}
+  <!-- {% if username %}
+  <button type="button" name="search" form="form1"> Search your 2nd order connections! </button>
+  {% endif %} -->
 </body>

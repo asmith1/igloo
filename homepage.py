@@ -4,7 +4,7 @@ from igloo import add, search
 app=Flask(__name__)
 
 username = None
-connectionList=[]
+# connectionList=[]
 
 @app.route('/')
 def add_form():
@@ -13,15 +13,19 @@ def add_form():
 @app.route('/', methods=['POST'])
 def add_name():
     global username
+    print ("-----USERNAME: ", username)
     if not username:
-        print ('getting the username!')
+        print ('------getting the username!------')
         username = request.form['username']
-        return render_template('add_form.html', username=username)
-    else:
-        # return add_connections(username)
-        connection = request.form['connection']
-        connectionList.append(connection)
-        return render_template('add_form.html', username=username, connectionList=connectionList)
+    return render_template('add_form.html', username=username)
+    # else:
+    #     connection = request.form['connection']
+    #     # if connection not in connectionList:
+    #     #     connectionList.append(connection)
+    #     newDict = add(username, connection)
+    #     connectionList = newDict[username]
+    #     print (newDict, connectionList)
+    #     return render_template('add_form.html', username=username, connectionList=connectionList)
 
 # @app.route('/<username>/connections', methods=['POST'])
 # def add_connections(username):

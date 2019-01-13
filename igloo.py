@@ -59,7 +59,6 @@ def addbyCL():
 				break
 			else: # add the connection to the list
 				add(yourname, connection)
-				#print connections
 
 connections = {}
 if __name__ == '__main__':

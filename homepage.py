@@ -16,7 +16,6 @@ def add_name():
     global username
     print ("-----USERNAME: ", username)
     username = request.form['username']
-    # username = request.form['logout']
     return render_template('homepage.html', username=username)
 
 @app.route('/logout')
@@ -24,7 +23,7 @@ def logout():
     print("logout")
     global username
     username = None
-    return render_template('homepage.html', username=username)
+    return redirect("/")
 
 @app.route('/add')
 def add_connections_page():

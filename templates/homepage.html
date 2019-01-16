@@ -4,10 +4,10 @@
 </head>
 
 <body>
-  <!-- <form id="logout">
-    <input name="logoutbutton" type="submit" value="None"> Logout </input>
-  </form> -->
-  <button name=logout onclick="/logout"> Logout </button>
+  <form action="/logout">
+    <input name="logout" type="submit" value="Logout">
+  </form>
+  
   <form method="POST" id="usernameform">
     {% if not username %}
       <p> Please enter your name </p>

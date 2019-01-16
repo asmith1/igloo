@@ -9,14 +9,22 @@ username = None
 @app.route('/')
 def add_form():
     global username
-    return render_template('add_form.html', username=username)
+    return render_template('homepage.html', username=username)
 
 @app.route('/', methods=['POST'])
 def add_name():
     global username
     print ("-----USERNAME: ", username)
     username = request.form['username']
-    return render_template('add_form.html', username=username)
+    # username = request.form['logout']
+    return render_template('homepage.html', username=username)
+
+@app.route('/logout')
+def logout():
+    print("logout")
+    global username
+    username = None
+    return render_template('homepage.html', username=username)
 
 @app.route('/add')
 def add_connections_page():
@@ -39,6 +47,8 @@ def add_connections():
 #     addToConnectionList(connection)
 #     return render_template('add_form.html', username=username, connectionList=connectionList)
 
-# @app.route('/search')
-# def searchPage():
-#
+@app.route('/search')
+def searchPage():
+    global username
+    secondDegCons = search(username)
+    return render_template('search.html', username=username, secondDegCons=secondDegCons)

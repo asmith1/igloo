@@ -1,0 +1,19 @@
+<!doctype html>
+
+<head>
+  <title> Search Eskimo Siblings </title>
+</head>
+
+<body>
+  {% if secondDegCons %}
+  <p> Hello {{username}}! Here are your eskimo siblings: </p>
+  <ul>
+    {% for connection in secondDegCons %}
+    <li> {{connection}} </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p> Hello {{username}}! It looks like you have no eskimo siblings in our system. Try checking back later! </p>
+  {% endif %}
+  <a href="/"> Back </a>
+</body>

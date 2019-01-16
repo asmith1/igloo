@@ -3,10 +3,11 @@
 # this will be implemented using adjacency lists
 # this version is simplified in that it treats connections as bidirectional and does not account for verified/unverified connections
 
+# returns 2nd degree connections in a list
 def search(searchName):
 	results = []
 	if searchName not in connections:
-		return "You are not in our database. Join by typing add and entering your name!"
+		return None
 	else:
 		names = connections.get(searchName)
 		for i in range(len(names)): # for each connection
@@ -16,11 +17,18 @@ def search(searchName):
 			results = results + secondOrdConns
 			finalResults = set(results)
 			finalResults.remove(searchName)
-		if len(finalResults) == 0:
-			return "You have no 2nd degree connections in our database!"
-		else:
-			cleanresults = ', '.join(list(finalResults))
-			return "Your 2nd degree connections are: " + cleanresults
+		return finalResults
+
+# returns 2nd degree connections as formatted text
+def searchbyCL(searchName):
+	finalResults = search(searchName)
+	if finalResults == None:
+		return "You are not in our database. Join by typing add and entering your name!"
+	if len(finalResults) == 0:
+		return "You have no 2nd degree connections in our system. Try adding more connections and checking again!"
+	else:
+		cleanresults = ', '.join(list(finalResults))
+		return "Your 2nd degree connections are: " + cleanresults
 
 # private function, only used internally
 def addConnection(yourname, connection):

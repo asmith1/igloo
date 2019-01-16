@@ -4,6 +4,10 @@
 </head>
 
 <body>
+  <!-- <form id="logout">
+    <input name="logoutbutton" type="submit" value="None"> Logout </input>
+  </form> -->
+  <button name=logout onclick="/logout"> Logout </button>
   <form method="POST" id="usernameform">
     {% if not username %}
       <p> Please enter your name </p>
@@ -15,6 +19,6 @@
   {% if username %}
   <p> Hello {{username}}! What would you like to do today? </p>
   <a type="button" name="addConnection" href="add"> Add connections </a>
-  <button type="button" name="search"> Search my 2nd order connections </button>
+  <a href="search"> Discover my 2nd degree connections </a>
   {% endif %}
 </body>
